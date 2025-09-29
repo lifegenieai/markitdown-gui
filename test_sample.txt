@@ -1,0 +1,13 @@
+MarkItDown Converter Test File
+==============================
+
+This is a plain text file for testing the MarkItDown converter application.
+
+Features:
+- Modern glass-morphic UI design
+- Support for multiple file formats (PDF, Word, Excel, PowerPoint, Images, HTML, YouTube URLs)
+- Real-time progress tracking with animations
+- Configurable settings and batch processing
+- Cross-platform compatibility with Flet framework
+
+The application provides a sleek, cutting-edge interface while maintaining simplicity for users of all technical levels.

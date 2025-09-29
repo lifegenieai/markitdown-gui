@@ -1,0 +1,31 @@
+ENHANCED MARKDOWN CONVERSION TEST
+
+This is a test document to demonstrate the enhanced markdown formatting capabilities.
+
+Introduction
+The MarkItDown converter now includes intelligent post-processing for better formatting.
+
+Main Features:
+
+1) Enhanced heading detection
+2) Improved list formatting
+3) Table structure optimization
+4) Better spacing and readability
+
+Key Benefits
+
+* Better document structure
+* Professional appearance
+* Consistent formatting
+* Human-readable output
+
+Data Table:
+Name	Age	Location
+John	25	New York
+Jane	30	California
+Bob	35	Texas
+
+Additional Information:
+For more details, visit https://github.com/microsoft/markitdown
+
+This demonstrates how the enhanced converter improves raw text into properly formatted Markdown.
