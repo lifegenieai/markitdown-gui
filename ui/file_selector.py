@@ -36,9 +36,10 @@ class FileSelector(ft.Container):
 
         # File list container
         self.file_list = ft.ListView(
-            height=200,
+            height=300,  # Increased height for better visibility
             spacing=5,
             padding=ft.padding.all(10),
+            auto_scroll=True,  # Auto-scroll to bottom when new items added
         )
 
         return ft.Column(

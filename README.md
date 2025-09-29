@@ -1,6 +1,6 @@
-# MarkItDown UI Converter
+# MarkItDown GUI Converter
 
-A modern, sleek desktop GUI application that provides a user-friendly interface for batch converting documents to Markdown using Microsoft's MarkItDown library.
+A modern, sleek desktop GUI application that provides a user-friendly interface for batch converting documents to Markdown using Microsoft's MarkItDown library with enhanced formatting capabilities.
 
 ## Features
 
@@ -19,12 +19,16 @@ A modern, sleek desktop GUI application that provides a user-friendly interface 
 - **Archives**: ZIP files (processes contents)
 
 ### 🚀 Advanced Features
-- Batch conversion with multi-threading
-- Real-time progress tracking with animations
-- Configurable settings and conversion profiles
-- Error handling and detailed logging
-- Output directory customization
-- File overwrite policies (skip, overwrite, rename)
+- **Enhanced Markdown Post-Processing**: Intelligent formatting with three enhancement levels (Basic, Standard, Advanced)
+- **Smart Heading Detection**: Automatic conversion of text patterns to proper Markdown headings
+- **Table Formatting**: Converts tab-separated and space-separated data to Markdown tables
+- **List Standardization**: Normalizes various list formats to consistent Markdown syntax
+- **Batch conversion**: Multi-threaded processing with configurable worker count (1-8 workers)
+- **Real-time progress tracking**: Animated progress indicators with detailed conversion logs
+- **Configurable settings**: Persistent user preferences with JSON configuration
+- **Improved scrolling**: Enhanced UI responsiveness for large file lists
+- **Error handling**: Comprehensive error reporting and graceful failure handling
+- **File overwrite policies**: Skip, overwrite, or rename existing files
 
 ## Installation
 
@@ -91,8 +95,12 @@ chmod +x setup.sh run.sh
 
 ### Settings Panel
 - **File Handling**: Configure overwrite policies and timestamp options
+- **Markdown Formatting**: Choose enhancement level (Basic/Standard/Advanced)
+  - **Basic**: Essential formatting only - headings, lists, basic spacing
+  - **Standard**: Headings, lists, tables, links, code blocks (recommended)
+  - **Advanced**: Full optimization with table of contents and structure analysis
 - **Conversion Options**: Enable document structure preservation and AI enhancements
-- **Performance**: Adjust parallel worker count for optimal speed
+- **Performance**: Adjust parallel worker count for optimal speed (1-8 workers)
 
 ### Progress Tracking
 - Real-time circular and linear progress indicators
@@ -109,7 +117,8 @@ app.py                    # Main entry point
 │   ├── progress_view.py # Animated progress tracking
 │   └── settings_panel.py # Configuration options
 ├── converter/
-│   └── markitdown_wrapper.py # MarkItDown integration with async processing
+│   ├── markitdown_wrapper.py # MarkItDown integration with async processing
+│   └── markdown_enhancer.py  # Enhanced Markdown post-processing engine
 └── utils/               # Utility functions
 ```
 
@@ -148,14 +157,31 @@ To add new file format support:
 2. Add format detection logic in `convert_single_file()`
 3. Update UI file filters in `file_selector.py`
 
+## Recent Updates (v1.1.0)
+
+### ✅ Completed Features
+- **Enhanced Markdown Formatting**: Intelligent post-processing with three enhancement levels
+- **Improved Heading Detection**: Better recognition of document sections and headings
+- **Advanced Table Processing**: Support for tab-separated and space-separated data
+- **UI Scrolling Improvements**: Better responsiveness for large file lists
+- **List Normalization**: Consistent formatting across different list styles
+
+### 🔄 Current Development
+- Testing and validation of new features
+- Performance optimization for large document sets
+- Error handling improvements
+
 ## Future Enhancements
 
-- Drag-and-drop file support
-- Watch folder mode for automatic conversions
-- Cloud storage integration
-- Conversion templates and presets
-- OCR quality settings
-- Batch processing queue management
+- **Plugin System**: Custom conversion plugins for specialized formats
+- **Cloud Integration**: OneDrive, Google Drive, Dropbox support
+- **Batch Scheduling**: Automated conversion tasks with cron-like scheduling
+- **Template System**: Custom Markdown output templates
+- **AI Enhancement**: LLM-powered content improvement and summarization
+- **CLI Interface**: Command-line version for automation
+- **Docker Support**: Containerized deployment options
+- **Watch Folder Mode**: Automatic conversions for monitored directories
+- **OCR Quality Settings**: Advanced image processing controls
 
 ## License
 

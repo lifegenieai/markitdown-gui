@@ -126,6 +126,32 @@ class MarkdownEnhancer:
         if line.endswith(':') and len(line) < 60 and not line.count(':') > 2:
             return 3
 
+        # Standalone lines that look like section headers (short, no punctuation, followed by content)
+        if (len(line) < 60 and
+            not re.search(r'[.!?]$', line) and
+            not line.startswith(('-', '*', '+')) and
+            not re.match(r'^\d+[.)]', line) and  # Don't convert numbered list items
+            len(line.split()) <= 4 and  # Short phrases only
+            index + 1 < len(lines)):
+
+            # Look ahead to see what follows
+            next_line = lines[index + 1].strip()
+
+            # If directly followed by a list or content, it's likely a heading
+            if (next_line and (
+                next_line.startswith(('-', '*', '+')) or
+                re.match(r'^\d+[.)]', next_line) or
+                (len(next_line) > 15 and next_line.endswith('.')) or
+                next_line.startswith('#'))):
+                return 2
+
+            # Also check if there's a blank line then a list (common pattern)
+            if (index + 2 < len(lines) and
+                not next_line and  # blank line
+                lines[index + 2].strip() and
+                lines[index + 2].strip().startswith(('-', '*', '+'))):
+                return 2
+
         # First significant line of document
         if index == 0 or (index < 5 and all(not l.strip() for l in lines[:index])):
             if len(line) < 80 and not line.endswith('.'):
@@ -367,16 +393,35 @@ class MarkdownEnhancer:
         # Remove excessive blank lines (more than 2 consecutive)
         content = re.sub(r'\n{3,}', '\n\n', content)
 
-        # Ensure proper spacing around headings
+        # Ensure proper spacing around headings and sections
         lines = content.split('\n')
         enhanced_lines = []
 
         for i, line in enumerate(lines):
+            current_line = line.strip()
+
+            # Add blank line before headings (except at start)
+            if current_line.startswith('#') and i > 0:
+                if enhanced_lines and enhanced_lines[-1].strip():
+                    enhanced_lines.append('')
+
             enhanced_lines.append(line)
 
             # Add blank line after headings if not present
-            if line.strip().startswith('#') and i + 1 < len(lines):
-                if lines[i + 1].strip() and not lines[i + 1].startswith('#'):
+            if current_line.startswith('#') and i + 1 < len(lines):
+                next_line = lines[i + 1].strip()
+                if next_line and not next_line.startswith('#'):
+                    enhanced_lines.append('')
+
+            # Add spacing after paragraphs that end with periods
+            elif (current_line.endswith('.') and
+                  i + 1 < len(lines) and
+                  lines[i + 1].strip() and
+                  not lines[i + 1].strip().startswith(('#', '-', '*', '+')) and
+                  not re.match(r'^\d+\.', lines[i + 1].strip())):
+                # Check if next line starts a new paragraph/section
+                next_line = lines[i + 1].strip()
+                if len(next_line) > 20 or next_line[0].isupper():
                     enhanced_lines.append('')
 
         return '\n'.join(enhanced_lines)

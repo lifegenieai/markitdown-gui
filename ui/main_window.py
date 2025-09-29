@@ -53,6 +53,7 @@ class MainWindow(ft.Container):
                 ],
                 spacing=0,
                 scroll=ft.ScrollMode.AUTO,
+                expand=True,
             ),
             gradient=ft.LinearGradient(
                 begin=ft.alignment.top_left,
